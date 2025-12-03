@@ -137,7 +137,9 @@ summary h2 {
 		<button type="button" id="sidebar-button-toggle" class="button-toggle" title="Show sidebar">Show sidebar</button>
 	</nav>
 	<div>
-		<h1 id="page-title-general">View Host Configurations</h1>
+		<h1 id="page-title-general" style="text-align: center; margin: -15px; position: absolute; left: 50%; transform: translateX(-50%);">
+                    View Host Configurations
+        </h1>
 	</div>
 </header>
 <main>
