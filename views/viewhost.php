@@ -15,12 +15,12 @@ foreach (glob("./include/classes/html/*.php") as $filename)
 }
 
 static $map_status = array(
-	0 => '<span class="green">monitored</span>',
-	1 => '<span class="red">unmonitored</span>'
+	0 => '<span class="green">Monitored</span>',
+	1 => '<span class="red">Not Monitored</span>'
 );
 static $map_maintenance_status  = array(
-        0 => 'no maintenance',
-        1 => 'maintenance in effect <a class="icon-maintenance"></a>'
+        0 => 'Not Under Maintenance',
+        1 => 'Under Maintenance <a class="icon-maintenance"></a>'
 );
 static $map_item_status  = array(
         0 => '<span class="green">Enabled</span>',
@@ -179,7 +179,7 @@ foreach($arr_hosts as $name){
         }
 ?>
 							</datalist>
-							<button type="submit" value="Search"/>Search host</button>
+							<button type="submit" value="Search"/>Search Host</button>
 						</div>
 					</li>
 				</ul>
@@ -250,7 +250,7 @@ if (isset($_POST['host'])) {
 						<div style="padding: 1em; display: flex;">
 							<div style="flex: 1;">
 								<!--<details><pre><?php var_export($hostInfo[0]);?></pre></details>-->
-								<h2>General information</h2>
+								<h2>General Information</h2>
 								<table class="source-tableeditor" style="padding: 10px">
 									<tbody>
 										<tr>
@@ -258,7 +258,7 @@ if (isset($_POST['host'])) {
 											<td><?php echo $hostInfo[0]['host'];?></td>
 										</tr>
 										<tr>
-											<th>Display name</th>
+											<th>Display Name</th>
 											<td><?php echo $hostInfo[0]['name'];?></td>
 										</tr>
 										<tr>
@@ -266,13 +266,13 @@ if (isset($_POST['host'])) {
 											<td><?php echo $map_status[$hostInfo[0]['status']];?></td>
 										</tr>
 										<tr>
-											<th>Maintenance status</th>
+											<th>Maintenance Status</th>
 											<td><?php echo $map_maintenance_status[$hostInfo[0]['maintenance_status']];?></td>
 										</tr>
 
 										<tr>
 											<th>Proxy</th>
-											<td><?php echo isset($proxyInfo[0]['host']) ? $proxyInfo[0]['host'] : "No proxy";?></td>
+											<td><?php echo isset($proxyInfo[0]['host']) ? $proxyInfo[0]['host'] : "No Proxy";?></td>
 										</tr>
 										<tr>
 											<th>Description</th>
@@ -286,7 +286,7 @@ if (isset($_POST['host'])) {
 		foreach($hostInfo[0]['interfaces'] as $interface){
 												echo "<li>";
 												if ($interface['ip']) { echo $interface['ip'];}
-							               	        		if (($interface['ip']) && ($interface['dns'])) {echo " | ";}
+							               	        		if (($interface['ip']) && ($interface['dns'])) {echo " || ";}
 							                        		if ($interface['dns']) {echo $interface['dns'];}
 												if (count($hostInfo[0]['interfaces']) > 1) {echo " ";}
 												echo "</li>";
