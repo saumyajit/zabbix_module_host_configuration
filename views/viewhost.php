@@ -137,7 +137,7 @@ summary h2 {
 		<button type="button" id="sidebar-button-toggle" class="button-toggle" title="Show sidebar">Show sidebar</button>
 	</nav>
 	<div>
-		<h1 id="page-title-general">Read Host Configuration</h1>
+		<h1 id="page-title-general">Host Configuration (Read-Only)</h1>
 	</div>
 </header>
 <main>
