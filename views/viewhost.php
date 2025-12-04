@@ -371,14 +371,14 @@ if (isset($_POST['host'])) {
 									<table id="items" class="source-tableeditor" style="padding: 10px">
 										<thead>
 											<th>Name</th>
-											<th>key</th>
+											<th>Key</th>
 											<th>Interval</th>
 											<th>History</th>
 											<th>Trends</th>
 											<th>Description</th>
 											<th>Status</th>
 											<th>State</th>
-											<th>Triggers</th>
+											<th>Count of Triggers Associated</th>
 										</thead>
 										<tbody>
 <?php foreach($itemsInfo as $itemInfo){ ?>
