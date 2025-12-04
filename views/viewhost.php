@@ -228,7 +228,7 @@ if (isset($_POST['host'])) {
 		$hostInfo = api::host()->get(array(
 			'filter' => array('hostid' => $host[0]['hostid']),
 			//'searchbyany' => 1,
-			'output' => array('hostid','host','name','status','description','proxyid','tls_connect','tls_accept','tls_issuer','tls_subject','flags','inventory_mode','maintenance_status'),
+			'output' => array('hostid','host','name','status','description','proxyid','proxy_groupid','monitored_by','tls_connect','tls_accept','tls_issuer','tls_subject','flags','inventory_mode','maintenance_status'),
 			'selectDiscoveryRule' => array('itemid','name','parent_hostid'),
 			'selectHostGroups' => array('groupid','name'),
 			'selectHostDiscovery' => array('parent_hostid','host'),
@@ -240,18 +240,39 @@ if (isset($_POST['host'])) {
 			'selectTags' => array('tag','value','automatic')
 		));
 		
-        $proxy_names = [];
-
-        if (!empty($hostInfo[0]['proxyid']) && $hostInfo[0]['proxyid'] != '0') {
-            $proxyInfo = api::proxy()->get(array(
-                'proxyids' => array($hostInfo[0]['proxyid']),
-                'output'   => array('name')
-            ));
-
-            foreach ($proxyInfo as $p) {
-                $proxy_names[] = $p['name'];
-            }
-        }
+		$proxy_names       = [];
+		$proxy_group_names = [];
+		
+		// monitored_by: 0 = Server, 1 = Proxy, 2 = Proxy group [web:37][web:44]
+		$monitored_by = isset($hostInfo[0]['monitored_by']) ? (int)$hostInfo[0]['monitored_by'] : 0;
+		
+		// Case 1: monitored by single proxy
+		if ($monitored_by === 1 && !empty($hostInfo[0]['proxyid']) && $hostInfo[0]['proxyid'] != '0') {
+			$proxyInfo = api::proxy()->get(array(
+				'proxyids' => array($hostInfo[0]['proxyid']),
+				'output'   => array('name')   // proxy name field [web:38]
+			));
+		
+			if (is_array($proxyInfo)) {
+				foreach ($proxyInfo as $p) {
+					$proxy_names[] = $p['name'];
+				}
+			}
+		}
+		
+		// Case 2: monitored by proxy group
+		if ($monitored_by === 2 && !empty($hostInfo[0]['proxy_groupid']) && $hostInfo[0]['proxy_groupid'] != '0') {
+			$pgInfo = api::proxygroup()->get(array(
+				'proxy_groupids' => array($hostInfo[0]['proxy_groupid']),
+				'output'         => array('name')   // proxy group name field [web:41]
+			));
+		
+			if (is_array($pgInfo)) {
+				foreach ($pgInfo as $pg) {
+					$proxy_group_names[] = $pg['name'];
+				}
+			}
+		}
 
 		// Host found, expose hostid for export buttons.
         $hostid = $hostInfo[0]['hostid'];
@@ -318,10 +339,13 @@ if (isset($_POST['host'])) {
 											<th>Maintenance Status</th>
 											<td><?php echo $map_maintenance_status[$hostInfo[0]['maintenance_status']];?></td>
 										</tr>
-
-										<tr>
+										<<tr>
 											<th>Proxy</th>
-											<td><?php echo !empty($proxy_names) ? htmlspecialchars(implode(', ', $proxy_names)) : 'No Proxy'; ?></td>
+											<td><?php echo !empty($proxy_names) ? htmlspecialchars(implode(', ', $proxy_names)) : 'N/A (Monitored by either Proxy Group or Server)'; ?></td>
+										</tr>
+										<tr>
+											<th>Proxy group</th>
+											<td><?php echo !empty($proxy_group_names) ? htmlspecialchars(implode(', ', $proxy_group_names)) : 'None'; ?></td>
 										</tr>
 										<tr>
 											<th>Description</th>
