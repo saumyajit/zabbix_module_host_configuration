@@ -118,11 +118,11 @@ class GetHostROView extends CAction {
 
         $inv = $host['inventory'] ?? [];
         fputcsv($fp, ['INVENTORY']);
-        fputcsv($fp, ['Type', $inv['type_full'] ?? '']);
+        fputcsv($fp, ['Product', $inv['type_full'] ?? '']);
         fputcsv($fp, ['Name', $inv['name'] ?? '']);
         fputcsv($fp, ['OS', $inv['os'] ?? '']);
         fputcsv($fp, ['OS short', $inv['os_short'] ?? '']);
-        fputcsv($fp, ['Contact', $inv['contact'] ?? '']);
+        fputcsv($fp, ['Customer', $inv['contact'] ?? '']);
         fputcsv($fp, []);
         fputcsv($fp, []); // spacer between sheets.
 
@@ -233,11 +233,11 @@ class GetHostROView extends CAction {
     <div class="section">
         <h2>Inventory</h2>
         <table class="kv-table">
-            <tr><td>Type</td><td><?php echo htmlspecialchars($inv['type_full'] ?? ''); ?></td></tr>
+            <tr><td>Product</td><td><?php echo htmlspecialchars($inv['type_full'] ?? ''); ?></td></tr>
             <tr><td>Name</td><td><?php echo htmlspecialchars($inv['name'] ?? ''); ?></td></tr>
             <tr><td>OS</td><td><?php echo htmlspecialchars($inv['os'] ?? ''); ?></td></tr>
             <tr><td>OS short</td><td><?php echo htmlspecialchars($inv['os_short'] ?? ''); ?></td></tr>
-            <tr><td>Contact</td><td><?php echo htmlspecialchars($inv['contact'] ?? ''); ?></td></tr>
+            <tr><td>Customer</td><td><?php echo htmlspecialchars($inv['contact'] ?? ''); ?></td></tr>
         </table>
     </div>
 
