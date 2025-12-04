@@ -140,7 +140,6 @@ summary h2 {
 <script>$(document).ready(function() {$('#items').dataTable({paging: false})});</script>
 <script>$(document).ready(function() {$('#triggers').dataTable({paging: false})});</script>
 
-// Export function
 <script>
 function downloadHostConfig(format) {
     var hostField = document.getElementById('exportHostId');
@@ -160,7 +159,6 @@ function downloadHostConfig(format) {
         + '&hostid=' + hostid;
 }
 </script>
-//.....................
 
 <header class="header-title">
 	<nav class="sidebar-nav-toggle" role="navigation" aria-label="Sidebar control">
