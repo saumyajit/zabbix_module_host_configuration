@@ -131,7 +131,12 @@ summary h2 {
     left: 50%;
     transform: translateX(-50%);
 }
-
+.host-search-wrapper {
+	display: flex;
+	justify-content: center;   /* center horizontally */
+	align-items: center;
+	gap: 8px;
+							
 </style>
 <link href="./modules/get-host-ro/views/includes/css/jquery.dataTables.css" rel="stylesheet"/>
 <script src="./modules/get-host-ro/views/includes/js/jquery.dataTables.js"></script>
@@ -174,14 +179,6 @@ function downloadHostConfig(format) {
 			<div id="maintenanceTab" aria-labelledby="tab_maintenanceTab" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false">
 				<ul class="table-forms" id="maintenanceFormList">
 					<li>
-					<style>
-						.host-search-wrapper {
-							display: flex;
-							justify-content: center;   /* center horizontally */
-							align-items: center;
-							gap: 8px;
-						}
-						</style>
 						<div class="host-search-wrapper">
 							<label class="form-label-asterisk" for="host">Host</label>
 					
