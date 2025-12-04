@@ -258,6 +258,7 @@ if (isset($_POST['host'])) {
                     </button>
                 </div>
 		//...........
+<?php
 		$itemsInfo= api::item()->get(array(
 			'hostids' => array($hostInfo[0]['hostid']),
 			'webitems' => 1,
@@ -485,5 +486,4 @@ if (isset($_POST['host'])) {
 	</form>
 </main>
 <?php
-
 require_once './include/page_footer.php';
