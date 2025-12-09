@@ -1,1 +1,1 @@
-# zabbix_module_host_configuration
+# zabbix_module_fetch_host_configuration
