@@ -17,9 +17,9 @@ class Module extends CModule {
 	public function init(): void {
 		// Initialize main menu (CMenu class instance).
 		APP::Component()->get('menu.main')
-			->findOrAdd(_('Monitoring'))
+			->findOrAdd(_('Reports'))
 				->getSubmenu()
-					->insertAfter(_('Discovery'),((new \CMenuItem(_('Host Configuration (RO)')))
+					->insertAfter(_('Top 100 Noisy Alerts'),((new \CMenuItem(_('Host Configuration (RO)')))
 						->setAction('gethostro.view'))
 					);
 	}
