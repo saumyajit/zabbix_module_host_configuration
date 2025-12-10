@@ -429,8 +429,37 @@ if (isset($_POST['host'])) {
 										</thead>
 										<tbody>
 <?php
-//		var_export($hostInfo[0]['inventory']);
-	echo build_table($hostInfo[0]['inventory']);
+
+$inventory_labels = [
+    'type'       => 'Environment',
+    'type_full'  => 'Product',
+    'name'       => 'Host Name',
+    'os'         => 'OS',
+    'os_short'   => 'OS (Short)',
+    'contact'    => 'Customer'
+];
+
+$inventory_order = [
+    'name',
+    'contact',
+    'type_full',
+    'type',
+    'os',
+    'os_short'
+];
+
+$inventory_raw = $hostInfo[0]['inventory'];
+$inventory_formatted = [];
+
+foreach ($inventory_order as $key) {
+    if (isset($inventory_raw[$key])) {
+        $label = isset($inventory_labels[$key]) ? $inventory_labels[$key] : $key;
+        $inventory_formatted[$label] = $inventory_raw[$key];
+    }
+}
+
+echo build_table($inventory_formatted);
+
 ?>
 										</tbody>
 									</table>
