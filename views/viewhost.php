@@ -138,10 +138,12 @@ summary h2 {
 	gap: 8px;
 }
 .icon-maintenance::before {
-    content: "\26A0";
+    content: "\1F527"; /* 🔧 wrench */
     margin-right: 4px;
-    font-weight: bold;
+    font-weight: normal;
     color: inherit;
+    font-size: 20px; /* increase this value to make it larger */
+    vertical-align: middle; /* aligns icon nicely with text */
 }
 
 </style>
