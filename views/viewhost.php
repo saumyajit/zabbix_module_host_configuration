@@ -136,6 +136,7 @@ summary h2 {
 	justify-content: center;   /* center horizontally */
 	align-items: center;
 	gap: 8px;
+}
 .icon-maintenance::before {
     content: "\26A0";
     margin-right: 4px;
