@@ -19,8 +19,8 @@ static $map_status = array(
 	1 => '<span class="red">Not Monitored</span>'
 );
 static $map_maintenance_status  = array(
-        0 => 'Not Under Maintenance',
-        1 => 'Under Maintenance <a class="icon-maintenance"></a>'
+        0 => '<span class="green">Not Under Maintenance</span>',
+        1 => '<span class="red">Under Maintenance <a class="icon-maintenance"></a></span>'
 );
 static $map_item_status  = array(
         0 => '<span class="green">Enabled</span>',
