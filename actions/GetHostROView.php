@@ -34,7 +34,36 @@ class GetHostROView extends CAction {
 
     /**
      * Main controller logic.
-     */
+	 ****** Re-map & reorder inventory for all export formats
+     */ 
+    private function formatInventory(array $inv): array {
+        $labels = [
+            'type'       => 'Environment',
+            'type_full'  => 'Product',
+            'name'       => 'Host Name',
+            'os'         => 'OS',
+            'contact'    => 'Customer'
+        ];
+
+        $order = [
+            'name',
+            'contact',
+            'type_full',
+            'type',
+            'os',
+        ];
+
+        $out = [];
+
+        foreach ($order as $key) {
+            if (isset($inv[$key])) {
+                $out[$labels[$key]] = $inv[$key];
+            }
+        }
+
+        return $out;
+    }
+
     protected function doAction(): void {
         // Read raw request parameters.
         $export = $_REQUEST['export'] ?? null;
@@ -100,6 +129,8 @@ class GetHostROView extends CAction {
         }
 
         $host = $hostInfo[0];
+		$inv = $host['inventory'] ?? [];
+        $invFormatted = $this->formatInventory($inv);
 
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename=host_' . $host['host'] . '_' . date('Y-m-d_Hi') . '.csv');
@@ -121,11 +152,9 @@ class GetHostROView extends CAction {
 
         $inv = $host['inventory'] ?? [];
         fputcsv($fp, ['INVENTORY']);
-        fputcsv($fp, ['Product', $inv['type_full'] ?? '']);
-        fputcsv($fp, ['Name', $inv['name'] ?? '']);
-        fputcsv($fp, ['OS', $inv['os'] ?? '']);
-        fputcsv($fp, ['OS short', $inv['os_short'] ?? '']);
-        fputcsv($fp, ['Customer', $inv['contact'] ?? '']);
+        foreach ($invFormatted as $label => $value) {
+            fputcsv($fp, [$label, $value]);
+        }
         fputcsv($fp, []);
         fputcsv($fp, []); // spacer between sheets.
 
@@ -187,7 +216,7 @@ class GetHostROView extends CAction {
     <meta charset="utf-8">
     <title>Host config: <?php echo htmlspecialchars($host['host']); ?></title>
     <style>
-        body { font-family: Arial, sans-serif; font-size: 13px; background: #f5f5f5; margin: 0; }
+        body { font-family: Trebuchet MS, sans-serif; font-size: 13px; background: #f5f5f5; margin: 0; }
         .page { max-width: 1200px; margin: 0 auto; background: #fff; padding: 20px 25px; }
         .header { background: #007bff; color: #fff; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
         .header h1 { margin: 0 0 5px 0; font-size: 22px; }
@@ -236,11 +265,11 @@ class GetHostROView extends CAction {
     <div class="section">
         <h2>Inventory</h2>
         <table class="kv-table">
-            <tr><td>Product</td><td><?php echo htmlspecialchars($inv['type_full'] ?? ''); ?></td></tr>
-            <tr><td>Name</td><td><?php echo htmlspecialchars($inv['name'] ?? ''); ?></td></tr>
-            <tr><td>OS</td><td><?php echo htmlspecialchars($inv['os'] ?? ''); ?></td></tr>
-            <tr><td>OS short</td><td><?php echo htmlspecialchars($inv['os_short'] ?? ''); ?></td></tr>
+            <tr><td>Host Name</td><td><?php echo htmlspecialchars($inv['name'] ?? ''); ?></td></tr>
             <tr><td>Customer</td><td><?php echo htmlspecialchars($inv['contact'] ?? ''); ?></td></tr>
+            <tr><td>Product</td><td><?php echo htmlspecialchars($inv['type_full'] ?? ''); ?></td></tr>
+            <tr><td>Environment</td><td><?php echo htmlspecialchars($inv['type'] ?? ''); ?></td></tr>
+            <tr><td>OS</td><td><?php echo htmlspecialchars($inv['os'] ?? ''); ?></td></tr>
         </table>
     </div>
 
@@ -334,7 +363,7 @@ class GetHostROView extends CAction {
                 'status'             => $host['status'] == 0 ? 'Monitored' : 'Not Monitored',
                 'maintenance_status' => $host['maintenance_status'] == 0 ? 'Not Under Maintenance' : 'Under Maintenance',
                 'description'        => $host['description'] ?? '',
-                'inventory'          => $host['inventory'] ?? [],
+                'inventory'          => $this->formatInventory($host['inventory'] ?? []),
                 'hostgroups'         => $host['hostgroups'] ?? [],
                 'interfaces'         => $host['interfaces'] ?? [],
                 'parentTemplates'    => $host['parentTemplates'] ?? []
