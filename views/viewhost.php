@@ -356,7 +356,7 @@ if (isset($_POST['host'])) {
 								<table class="source-tableeditor" style="padding: 10px">
 									<tbody>
 										<tr>
-											<th>Hostname</th>
+											<th>Host Name</th>
 											<td><?php echo $hostInfo[0]['host'];?></td>
 										</tr>
 										<tr>
