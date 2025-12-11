@@ -71,47 +71,49 @@ table {
 th, td {
   text-align: left;
   padding: 8px;
-  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
 }
 
+/* Dotted Borders Between Cells */
 table td + td,
 table th + td {
   border-left: solid 1px;
   border-style: dotted;
 }
 
+/* Table Header Bottom Border */
 thead {
   border-bottom: solid 1px;
   border-style: dotted;
 }
 
-tr { border: none; }
-tr:nth-child(even) { background-color: #f4f7fb; }
+/* Alternating Row Colors */
+tr:nth-child(even) {
+  background-color: #f4f7fb;
+}
 
-/* Summary H2 / Section Headers */
-summary h2,
-h2 {
+/* Summary/Section Headers */
+summary h2 {
   display: inline-block;
   font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
 }
 
-/* Tooltips */
+/* Tooltip Styling */
 .tooltip {
-  text-decoration:none;
-  position:relative;
+  text-decoration: none;
+  position: relative;
 }
 
 .tooltip span {
-  display:none;
+  display: none;
 }
 
 .tooltip:hover span {
-  display:block;
-  position:absolute;
-  top:0;
-  left:-75%;
-  z-index:1000;
-  width:auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -75%;
+  z-index: 1000;
+  width: auto;
 }
 
 /* Page Title */
@@ -124,56 +126,94 @@ h2 {
   font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
 }
 
-/* Host Search Wrapper */
+/* Host Search Wrapper Form Layout */
 .host-search-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
+  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+.host-search-wrapper label,
+.host-search-wrapper input,
+.host-search-wrapper button {
+  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
 }
 
 /* Maintenance Icon */
 .icon-maintenance::before {
   content: "\26A0";        /* ⚠ symbol */
-  margin-right: 6px;
+  margin-right: 6px;       /* space before text */
   font-weight: bold;
   color: #d4af37;          /* deep yellow / Zabbix-like */
-  font-size: 18px;
-  vertical-align: middle;
+  font-size: 18px;         /* adjust size as needed */
+  vertical-align: middle;  /* align with text */
 }
 
-/* Items and Triggers Table Header */
+/* Table Headers For Items & Triggers */
 #items thead th,
-#triggers thead th {
-  background-color: #e9eff6;
-  color: #1a1a1a;
-  font-weight: 600;
-  font-size: 14px;
-  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
-  border-bottom: 2px solid #d0d7e1;
-  letter-spacing: 0.3px;
-}
-
-/* Macros Table Header */
+#triggers thead th,
 #macros thead th {
   background-color: #e9eff6;
   color: #1a1a1a;
   font-weight: 600;
   font-size: 14px;
-  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
   border-bottom: 2px solid #d0d7e1;
   letter-spacing: 0.3px;
+  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
 }
 
-/* Inventory Table Header */
-#inventory thead th {
+/* Table Cells Font */
+table th,
+table td {
+  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+/* Specific Table Styling (Optional) */
+#macros thead th {
   background-color: #e9eff6;
   color: #1a1a1a;
   font-weight: 600;
   font-size: 14px;
-  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
   border-bottom: 2px solid #d0d7e1;
   letter-spacing: 0.3px;
+}
+
+/* Main Content (Forms, Inputs, Buttons) */
+main,
+main label,
+main input,
+main button,
+main h1 {
+  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+/* Buttons Hover Effect (optional) */
+main button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+/* Even More Consistent Spacing */
+main input, main button {
+  padding: 4px 8px;
+  font-size: 14px;
+}
+main button {
+  display: inline-flex;          /* use flexbox for alignment */
+  align-items: center;           /* vertically center content */
+  justify-content: center;       /* horizontally center content */
+  height: 32px;                  /* optional fixed height */
+  padding: 4px 12px;             /* adjust padding for spacing */
+  font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background-color: #0074cc;    /* example button color */
+  color: white;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 
 </style>
