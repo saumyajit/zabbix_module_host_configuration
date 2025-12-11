@@ -88,7 +88,7 @@ thead {
 
 tr { border: none; }
 
-tr:nth-child(even) {background-color: #38383840;}
+tr:nth-child(even) { background-color: #f4f7fb; }
 
 summary h2 {
   display: inline-block;
@@ -144,6 +144,29 @@ summary h2 {
     color: #d4af37;          /* deep yellow / Zabbix-like */
     font-size: 18px;         /* adjust size as needed */
     vertical-align: middle;  /* align with text */
+}
+#items thead th,
+#triggers thead th {
+    background-color: #e9eff6;
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+    border-bottom: 2px solid #d0d7e1;
+    letter-spacing: 0.3px;
+}
+table th,
+table td {
+    font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+#macros thead th {
+    background-color: #e9eff6;       /* Light blue */
+    color: #1a1a1a;                   /* Near-black text */
+    font-weight: 600;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+    border-bottom: 2px solid #d0d7e1; /* Slightly darker separator */
+    letter-spacing: 0.3px;
 }
 
 </style>
