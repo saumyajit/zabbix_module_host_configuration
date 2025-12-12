@@ -70,28 +70,35 @@ class GetHostROView extends CAction {
         $hostid = $_REQUEST['hostid'] ?? null;
 
         if ($export !== null && $hostid !== null) {
-            // Host main info + inventory.
+            
+            // -------------------------------
+            // HOST INFO
+            // -------------------------------	
             $hostInfo = API::Host()->get([
                 'hostids'           => $hostid,
                 'output'            => ['hostid', 'host', 'name', 'status', 'description', 'maintenance_status'],
                 'selectInventory'   => ['type_full', 'name', 'os', 'os_short', 'contact'],
                 'selectHostGroups'  => ['groupid', 'name'],
                 'selectInterfaces'  => ['interfaceid', 'type', 'ip', 'dns', 'port'],
-                                'selectTags'            => ['tag', 'value', 'automatic'],
+                'selectTags'        => ['tag', 'value', 'automatic'],
                 'selectParentTemplates' => ['templateid', 'name']
             ]);
 
-            // Items.
-                        $itemsInfo = API::Item()->get([
-                                'hostids'   => $hostid,
-                                'webitems'  => 1,   // include web scenario items like in your viewhost.php
-                                'templated' => null,
-                                'preservekeys' => 0,
-                                'output'    => ['itemid', 'name', 'key_', 'delay', 'history', 'trends', 'status', 'state', 'description'],
-                                'sortfield' => 'name'
-                        ]);
+            // -------------------------------
+            // ITEMS
+            // -------------------------------
+            $itemsInfo = API::Item()->get([
+                'hostids'   => $hostid,
+                'webitems'  => 1,   // include web scenario items like in your viewhost.php
+                'templated' => null,
+                'preservekeys' => 0,
+                'output'    => ['itemid', 'name', 'key_', 'delay', 'history', 'trends', 'status', 'state', 'description'],
+                'sortfield' => 'name'
+            ]);
 
-            // Triggers with expanded expression.
+            // -------------------------------
+            // TRIGGERS
+            // -------------------------------
             $triggers = API::Trigger()->get([
                 'output'            => ['triggerid', 'description', 'expression', 'priority', 'status', 'state'],
                 'filter'            => ['hostid' => $hostid],
@@ -121,7 +128,12 @@ class GetHostROView extends CAction {
         $response = new CControllerResponseData($data);
         $this->setResponse($response);
     }
-
+   
+    /**
+     * -------------------------------------------------
+     * CSV EXPORT
+     * -------------------------------------------------
+     */
     private function exportToCSV(array $hostInfo, array $itemsInfo, array $triggers): void {
         if (empty($hostInfo)) {
             header('HTTP/1.1 404 Not Found');
@@ -211,6 +223,11 @@ class GetHostROView extends CAction {
         exit;
     }
 
+    /**
+     * -------------------------------------------------
+     * HTML EXPORT
+     * -------------------------------------------------
+     */
     private function exportToHTML(array $hostInfo, array $itemsInfo, array $triggers): void {
         if (empty($hostInfo)) {
             header('HTTP/1.1 404 Not Found');
@@ -370,6 +387,11 @@ class GetHostROView extends CAction {
         exit;
     }
 
+   /**
+     * -------------------------------------------------
+     * JSON EXPORT
+     * -------------------------------------------------
+     */
     private function exportToJSON(array $hostInfo, array $itemsInfo, array $triggers): void {
         if (empty($hostInfo)) {
             header('HTTP/1.1 404 Not Found');
