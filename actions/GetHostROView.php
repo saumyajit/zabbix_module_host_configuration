@@ -163,21 +163,20 @@ class GetHostROView extends CAction {
         fputcsv($fp, ['Description', $host['description'] ?? '']);
         fputcsv($fp, []);
 
-                // Tags
-                fputcsv($fp, []);
-                fputcsv($fp, ['TAGS']);
-                fputcsv($fp, ['Tag', 'Value']);
-
-                if (!empty($host['tags'])) {
-                        foreach ($host['tags'] as $t) {
-                                fputcsv($fp, [$t['tag'], $t['value']]);
-                        }
-                } else {
-                        fputcsv($fp, ['(none)', '']);
+        // Tags
+        fputcsv($fp, []);
+        fputcsv($fp, ['TAGS']);
+        fputcsv($fp, ['Tag', 'Value']);
+              if (!empty($host['tags'])) {
+                   foreach ($host['tags'] as $t) {
+         fputcsv($fp, [$t['tag'], $t['value']]);
+                    }
+            } else {
+         fputcsv($fp, ['(none)', '']);
                 }
-                fputcsv($fp, []);
-
-
+         fputcsv($fp, []);
+        
+        // Inventory
         $inv = $host['inventory'] ?? [];
         fputcsv($fp, ['INVENTORY']);
         foreach ($invFormatted as $label => $value) {
