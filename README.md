@@ -29,7 +29,6 @@ The module retrieves key host configuration items, including:
 - Linked templates  
 - Interfaces (Agent / SNMP / IPMI / JMX)  
 - Host macros  
-- Tags  
 - Inventory data  
 - Proxy assignment  
 - Description  
